@@ -1,4 +1,4 @@
-import countIncreases from "./countIncreases";
+import countIncreases from './countIncreases';
 
 const fs = require('fs');
 const yargs = require('yargs');
@@ -11,7 +11,7 @@ if (!inputPath) {
 }
 
 const file: string = fs.readFileSync(inputPath, 'utf8');
-const inputs = file.split('\n').map(text => Number(text));
+const inputs = file.split('\n').map((text) => Number(text));
 
 const count = countIncreases(inputs);
 

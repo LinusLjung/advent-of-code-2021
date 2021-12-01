@@ -1,4 +1,4 @@
-import countIncreases from "./countIncreases";
+import countIncreases from './countIncreases';
 
 describe('countIncreases()', () => {
   it('should count increases', () => {

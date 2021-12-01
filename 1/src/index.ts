@@ -1,4 +1,5 @@
 import countIncreases from './countIncreases';
+import groupInputs from './groupInputs';
 
 const fs = require('fs');
 const yargs = require('yargs');
@@ -13,6 +14,7 @@ if (!inputPath) {
 const file: string = fs.readFileSync(inputPath, 'utf8');
 const inputs = file.split('\n').map((text) => Number(text));
 
-const count = countIncreases(inputs);
-
-console.log(count);
+console.log(`Count of increases: ${countIncreases(inputs)}`);
+console.log(
+  `Count of increases in three: ${countIncreases(groupInputs(inputs))}`
+);

@@ -15,7 +15,8 @@ describe('calculatePosition()', () => {
 
     const expectedPosition: Position = {
       horizontal: 15,
-      depth: 10,
+      depth: 60,
+      aim: 10,
     };
 
     expect(calculatePosition(instructions)).toEqual(expectedPosition);

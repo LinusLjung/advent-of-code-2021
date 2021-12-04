@@ -1,3 +1,7 @@
+export function flipBitsArray(bits: number[]) {
+  return bits.map((bit) => 1 - bit);
+}
+
 function flipBits(value: number) {
   return parseInt(
     value

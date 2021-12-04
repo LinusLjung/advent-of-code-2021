@@ -1,6 +1,5 @@
 import getMostCommonValues from './getMostCommonValues';
 import invertArrays from './invertArrays';
-import parseInput from './parseInput';
 import { Data } from './types';
 
 export function getGammaBits(measurements: Data) {
@@ -9,8 +8,8 @@ export function getGammaBits(measurements: Data) {
   );
 }
 
-function getGamma(input: string) {
-  return parseInt(getGammaBits(parseInput(input)).join(''), 2);
+function getGamma(measurements: Data) {
+  return parseInt(getGammaBits(measurements).join(''), 2);
 }
 
 export default getGamma;

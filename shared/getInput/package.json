@@ -1,0 +1,21 @@
+{
+  "name": "getinput",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/getInput/index.js",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/yargs": "^17.0.7",
+    "yargs": "^17.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.5.2"
+  }
+}

@@ -13,6 +13,6 @@ describe('calculateNumberOfOverlaps()', () => {
 0,0 -> 8,8
 5,5 -> 8,2`;
 
-    expect(calculateNumberOfOverlaps(input)).toBe(5);
+    expect(calculateNumberOfOverlaps(input)).toBe(12);
   });
 });

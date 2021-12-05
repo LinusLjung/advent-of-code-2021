@@ -1,3 +1,4 @@
+import eol from 'eol';
 import fs from 'fs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
@@ -11,7 +12,7 @@ function getInput() {
     throw new Error('Missing `--input` argument');
   }
 
-  return fs.readFileSync(inputPath, 'utf8');
+  return eol.lf(fs.readFileSync(inputPath, 'utf8'));
 }
 
 export default getInput;

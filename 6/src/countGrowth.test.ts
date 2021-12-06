@@ -4,6 +4,7 @@ describe('countGrowth', () => {
   it.each([
     ['3,4,3,1,2', 18, 26],
     ['3,4,3,1,2', 80, 5934],
+    ['3,4,3,1,2', 256, 26984457539],
   ])(
     'should count the number of fish after n days',
     (input, days, expected) => {

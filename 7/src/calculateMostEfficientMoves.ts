@@ -1,7 +1,8 @@
+import getPowerConsumption from './getPowerConsumption';
+
 function calculateMostEfficientMoves(positions: number[]) {
-  const middleIndex = Math.round(positions.length / 2);
-  const sortedPositions = positions.sort((a, b) => a - b);
-  const distinctPositions = positions.reduce<number[]>((acc, curr) => {
+  const sortedPositions = [...positions].sort((a, b) => a - b);
+  const distinctPositions = sortedPositions.reduce<number[]>((acc, curr) => {
     if (acc.includes(curr)) {
       return acc;
     }
@@ -10,22 +11,12 @@ function calculateMostEfficientMoves(positions: number[]) {
 
     return acc;
   }, []);
-  const middleValue = sortedPositions[middleIndex];
-  const distinctMiddleIndex = distinctPositions.indexOf(middleValue);
+  const lowestDistinctValue = distinctPositions[0];
+  const highestDistinctValue = distinctPositions.at(-1)!;
   const calculationOrder = [];
 
-  for (
-    let i = distinctMiddleIndex, j = distinctMiddleIndex + 1;
-    i >= 0 && j < distinctPositions.length;
-    i--, j++
-  ) {
-    if (distinctPositions[i] != null) {
-      calculationOrder.push(distinctPositions[i]);
-    }
-
-    if (distinctPositions[j] != null) {
-      calculationOrder.push(distinctPositions[j]);
-    }
+  for (let i = lowestDistinctValue; i <= highestDistinctValue; i++) {
+    calculationOrder.push(i);
   }
 
   let lowestPowerConsumption: number | null = null;
@@ -33,7 +24,7 @@ function calculateMostEfficientMoves(positions: number[]) {
   for (let i = 0; i < calculationOrder.length; i++) {
     let currentPowerConsumption = 0;
 
-    for (let j = 0; j < positions.length; j++) {
+    for (let j = 0; j < sortedPositions.length; j++) {
       if (
         lowestPowerConsumption != null &&
         currentPowerConsumption > lowestPowerConsumption
@@ -41,7 +32,9 @@ function calculateMostEfficientMoves(positions: number[]) {
         break;
       }
 
-      currentPowerConsumption += Math.abs(positions[j] - calculationOrder[i]);
+      currentPowerConsumption += getPowerConsumption(
+        Math.abs(sortedPositions[j] - calculationOrder[i])
+      );
     }
 
     if (

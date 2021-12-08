@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
+const { exec } = require('child_process');
 
 const TEMPLATE_FOLDER = path.resolve(__dirname, '../template');
 
@@ -24,3 +25,14 @@ fs.copy(TEMPLATE_FOLDER, folderPath, (err) => {
 
   console.log(`Day ${day} generated`);
 });
+
+exec(
+  `node ${path.join(
+    __dirname,
+    './fetchPuzzleInput.js'
+  )} --session ../session.txt --day ${day} --out ${path.join(
+    folderPath,
+    'input.txt'
+  )}`,
+  console.log
+);

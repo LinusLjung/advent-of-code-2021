@@ -1,30 +1,27 @@
-function getAllLowPoints(points: string[]): number[] {
-  return points.reduce<number[]>((acc, row, i, rows) => {
+import { Point } from './types';
+
+function getAllLowPoints(points: Point[][]): Point[] {
+  return points.reduce<Point[]>((acc, row, rowIndex, rows) => {
     return [
       ...acc,
-      ...row
-        .split('')
-        .map(Number)
-        .reduce<number[]>((acc, point, j) => {
-          const adjacentPoints = [
-            rows[i - 1]?.[j],
-            rows[i][j - 1],
-            rows[i][j + 1],
-            rows[i + 1]?.[j],
-          ]
-            .filter((point) => point != null)
-            .map(Number);
+      ...row.reduce<Point[]>((acc, point, pointIndex) => {
+        const adjacentPoints = [
+          rows[rowIndex - 1]?.[pointIndex],
+          rows[rowIndex][pointIndex - 1],
+          rows[rowIndex][pointIndex + 1],
+          rows[rowIndex + 1]?.[pointIndex],
+        ].filter((point) => point != null);
 
-          const isSmallest = !adjacentPoints.some(
-            (adjacentPoint) => adjacentPoint <= point
-          );
+        const isSmallest = !adjacentPoints.some(
+          (adjacentPoint) => adjacentPoint[0] <= point[0]
+        );
 
-          if (isSmallest) {
-            return [...acc, point];
-          }
+        if (isSmallest) {
+          return [...acc, point];
+        }
 
-          return acc;
-        }, []),
+        return acc;
+      }, []),
     ];
   }, []);
 }

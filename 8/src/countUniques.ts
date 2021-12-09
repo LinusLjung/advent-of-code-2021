@@ -1,4 +1,6 @@
-const uniqueLengths = [2, 3, 4, 7];
+import { UNIQUE_COMBINATIONS } from './consts';
+
+const uniqueLengths = Object.values(UNIQUE_COMBINATIONS);
 
 function countUniques(input: string[]) {
   return input

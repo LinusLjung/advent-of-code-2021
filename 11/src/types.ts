@@ -1,0 +1,1 @@
+type Position = [number, number];

@@ -5,8 +5,9 @@
   "main": "build/14/src/index.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
-    "start": "ts-node src/index.ts --input ./input.txt",
-    "example": "ts-node src/index.ts --input ./example-input.txt",
+    "part1": "ts-node src/index.ts --input ./input.txt --steps 10",
+    "part2": "ts-node src/index.ts --input ./input.txt --steps 40",
+    "example": "ts-node src/index.ts --input ./example-input.txt --steps 10",
     "test": "jest",
     "test:watch": "jest --watch"
   },

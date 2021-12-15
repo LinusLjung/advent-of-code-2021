@@ -21,11 +21,8 @@ BC -> B
 CC -> N
 CN -> C`;
 
-    expect(runPairInsertions(input, 1)).toBe('NCNBCHB');
-    expect(runPairInsertions(input, 2)).toBe('NBCCNBBBCBHCB');
-    expect(runPairInsertions(input, 3)).toBe('NBBBCNCCNBBNBNBBCHBHHBCHB');
-    expect(runPairInsertions(input, 4)).toBe(
-      'NBBNBNBBCCNBCNCCNBBNBBNBBBNBBNBBCBHCBHHNHCBBCBHCB'
-    );
+    expect(runPairInsertions(input, 1)).toEqual({ B: 2, C: 2, H: 1, N: 2 });
+    expect(runPairInsertions(input, 2)).toEqual({ N: 2, B: 6, C: 4, H: 1 });
+    expect(runPairInsertions(input, 3)).toEqual({ N: 5, B: 11, C: 5, H: 4 });
   });
 });

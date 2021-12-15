@@ -1,14 +1,6 @@
-function calculatePolymerValue(polymerTemplate: string): number {
-  const counter: { [x: string]: number } = {};
+import { Counter } from './types';
 
-  polymerTemplate.split('').forEach((character) => {
-    if (counter[character]) {
-      counter[character] = counter[character] + 1;
-    } else {
-      counter[character] = 1;
-    }
-  });
-
+function calculatePolymerValue(counter: Counter): number {
   const values = Object.values(counter);
 
   return Math.max(...values) - Math.min(...values);

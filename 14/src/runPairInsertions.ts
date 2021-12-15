@@ -1,28 +1,42 @@
+import countOccurrences from './countOccurrences';
 import getPairs from './getPairs';
 import insertElement from './insertElement';
-import joinPairs from './joinPairs';
+import { Counter } from './types';
 
-function runPairInsertions(input: string, steps: number) {
+function runPairInsertions(input: string, steps: number): Counter {
   let [polymerTemplate, pairInsertionsString] = input.split('\n\n');
   const pairInsertions = pairInsertionsString
     .split('\n')
     .map((line) => line.split(' -> '));
 
+  let occurrences = countOccurrences(polymerTemplate);
+  let pairs = getPairs(polymerTemplate).reduce<Counter>((acc, curr) => {
+    if (acc[curr]) {
+      acc[curr]++;
+    } else {
+      acc[curr] = 1;
+    }
+
+    return acc;
+  }, {});
+
   for (let i = 0; i < steps; i++) {
-    polymerTemplate = joinPairs(
-      getPairs(polymerTemplate).reduce<string[]>((acc, curr) => {
-        const insertion = pairInsertions.find(([pair]) => pair === curr);
+    let copiedPairs = { ...pairs };
 
-        if (!insertion) {
-          return acc;
-        }
+    for (let pair of Object.keys(pairs)) {
+      const insertion = pairInsertions.find(
+        (insertion) => insertion[0] === pair
+      );
 
-        return [...acc, insertElement(curr, insertion[1])];
-      }, [])
-    );
+      if (insertion && pairs[pair]) {
+        insertElement(pair, insertion[1], pairs, copiedPairs, occurrences);
+      }
+    }
+
+    pairs = copiedPairs;
   }
 
-  return polymerTemplate;
+  return occurrences;
 }
 
 export default runPairInsertions;

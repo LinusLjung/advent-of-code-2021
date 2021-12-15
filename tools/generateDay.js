@@ -6,7 +6,9 @@ const { exec } = require('child_process');
 
 const TEMPLATE_FOLDER = path.resolve(__dirname, '../template');
 
-const { day } = yargs(hideBin(process.argv)).argv;
+const {
+  _: [day],
+} = yargs(hideBin(process.argv)).argv;
 
 if (!day) {
   throw new Error('Missing `--day` argument');

@@ -4,8 +4,10 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 function getInput() {
-  const { input: inputPath } = yargs(hideBin(process.argv)).argv as {
-    [x: string]: string;
+  const {
+    _: [inputPath],
+  } = yargs(hideBin(process.argv)).argv as {
+    _: Array<string | number>;
   };
 
   if (!inputPath) {

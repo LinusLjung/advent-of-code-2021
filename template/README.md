@@ -1,5 +1,7 @@
 ## Setup
-`npm install && npm run build`
+`npm install`
 
 ## Usage
-`node . --input <path-to-input-file>`
+`npm run part1 <input>`
+`npm run part2 <input>`
+`npm run example <input>`

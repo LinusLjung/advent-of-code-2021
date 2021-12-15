@@ -1,9 +1,7 @@
-import createCells from './createCells';
+import Cell from './Cell';
 import findPath from './findPath';
 
-function getRiskLevel(input: string) {
-  const cells = createCells(input);
-
+function getRiskLevel(cells: Cell[]) {
   const start = cells[0];
   const end = cells.at(-1)!;
 

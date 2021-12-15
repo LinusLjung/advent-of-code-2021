@@ -12,6 +12,7 @@ function findPath(start: Cell, end: Cell, allCells: Cell[]): Cell[] {
 
   updateNeighbours(start);
 
+  let i = 0;
   while ((current = findBestUnvisited(allCells)!)) {
     current.visited = true;
 
@@ -21,6 +22,8 @@ function findPath(start: Cell, end: Cell, allCells: Cell[]): Cell[] {
 
     updateNeighbours(current);
   }
+
+  console.log('end', end);
 
   return generatePath(end);
 }

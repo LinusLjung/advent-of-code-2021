@@ -1,7 +1,6 @@
 import Cell from './Cell';
 
-function createCells(input: string): Cell[] {
-  const grid = input.split('\n').map((line) => line.split('').map(Number));
+function createCells(grid: number[][]): Cell[] {
   const cells = grid.map((row, y) =>
     row.map((risk, x) => new Cell(risk, x, y))
   );

@@ -1,6 +1,7 @@
 import Cell from './Cell';
 
 function findBestUnvisited(cells: Cell[]): Cell | null {
+  console.log('findBestUnvisited start');
   const unvisited = cells.filter((cell) => !cell.visited);
 
   if (!unvisited.length) {

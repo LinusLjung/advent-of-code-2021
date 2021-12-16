@@ -11,7 +11,7 @@ function getInput() {
   };
 
   if (!inputPath) {
-    throw new Error('Missing `--input` argument');
+    throw new Error('Missing `input` argument');
   }
 
   return eol.lf(fs.readFileSync(inputPath, 'utf8'));

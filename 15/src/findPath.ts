@@ -5,21 +5,24 @@ import updateNeighbours from './updateNeighbours';
 
 function findPath(start: Cell, end: Cell, allCells: Cell[]): Cell[] {
   let current = start;
+  const unvisited: Cell[] = [];
 
   start.riskFromStart = 0;
   start.risk = 0;
   start.visited = true;
 
-  updateNeighbours(start);
+  updateNeighbours(start, unvisited);
 
-  while ((current = findBestUnvisited(allCells)!)) {
+  while ((current = findBestUnvisited(unvisited)!)) {
     current.visited = true;
+
+    unvisited.splice(unvisited.indexOf(current), 1);
 
     if (current === end) {
       continue;
     }
 
-    updateNeighbours(current);
+    updateNeighbours(current, unvisited);
   }
 
   return generatePath(end);

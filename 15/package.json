@@ -5,13 +5,14 @@
   "main": "build/15/src/index.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
-    "part1": "ts-node src/index.ts ./input.txt",
-    "part2": "ts-node src/index.ts ./input.txt",
-    "example": "ts-node src/index.ts ./example-input.txt",
+    "part1": "ts-node src/index.ts ./input.txt 1",
+    "part2": "ts-node src/index.ts ./input.txt 5",
+    "example": "ts-node src/index.ts ./example-input.txt 1",
+    "example2": "ts-node src/index.ts ./example-input-2.txt 1",
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "author": "",
+  "author": ""  ,
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.0.3",

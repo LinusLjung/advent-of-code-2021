@@ -1,9 +1,13 @@
 import Cell from './Cell';
 
-function updateNeighbours(cell: Cell) {
+function updateNeighbours(cell: Cell, unvisited: Cell[]) {
   cell.neighbours.forEach((neighbour) => {
     if (neighbour.visited) {
       return;
+    }
+
+    if (!unvisited.includes(neighbour)) {
+      unvisited.push(neighbour);
     }
 
     const newRiskFromStart = cell.riskFromStart + neighbour.risk;

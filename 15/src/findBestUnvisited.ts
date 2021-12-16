@@ -1,13 +1,11 @@
 import Cell from './Cell';
 
 function findBestUnvisited(cells: Cell[]): Cell | null {
-  const unvisited = cells.filter((cell) => !cell.visited);
-
-  if (!unvisited.length) {
+  if (!cells.length) {
     return null;
   }
 
-  return unvisited.reduce((best, current) => {
+  return cells.reduce((best, current) => {
     if (current.riskFromStart < best.riskFromStart) {
       return current;
     }

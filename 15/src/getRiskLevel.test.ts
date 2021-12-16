@@ -1,9 +1,13 @@
+import createCells from './createCells';
+import createGrid from './createGrid';
 import getRiskLevel from './getRiskLevel';
 
 describe('getRiskLevel()', () => {
   it('should find the safest path', () => {
     expect(
-      getRiskLevel(`1163751742
+      getRiskLevel(
+        createCells(
+          createGrid(`1163751742
 1381373672
 2136511328
 3694931569
@@ -13,6 +17,8 @@ describe('getRiskLevel()', () => {
 3125421639
 1293138521
 2311944581`)
+        )
+      )
     ).toBe(40);
   });
 });

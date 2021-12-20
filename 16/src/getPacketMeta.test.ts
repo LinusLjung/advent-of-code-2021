@@ -1,3 +1,4 @@
+import createNewPacket from './createNewPacket';
 import getPacketMeta from './getPacketMeta';
 
 describe('getPacketMeta()', () => {
@@ -7,7 +8,7 @@ describe('getPacketMeta()', () => {
   ])(
     'should return the meta bits based on the length type ID',
     (input, expected) => {
-      expect(getPacketMeta(input)).toBe(expected);
+      expect(getPacketMeta(createNewPacket(input))).toBe(expected);
     }
   );
 });

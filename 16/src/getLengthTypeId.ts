@@ -1,7 +1,10 @@
-import { HEADER_SIZE } from './consts';
+import { HEADER_SIZE, LENGTH_TYPE_ID_SIZE } from './consts';
 
 function getLengthTypeId(packet: string): number {
-  return Number(packet[HEADER_SIZE]);
+  return parseInt(
+    packet.slice(HEADER_SIZE, HEADER_SIZE + LENGTH_TYPE_ID_SIZE),
+    2
+  );
 }
 
 export default getLengthTypeId;

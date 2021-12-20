@@ -8,6 +8,10 @@
     "part1": "ts-node src/index.ts ./input.txt",
     "part2": "ts-node src/index.ts ./input.txt",
     "example": "ts-node src/index.ts ./example-input.txt",
+    "example0": "ts-node src/index.ts ./example-input-0.txt",
+    "example1": "ts-node src/index.ts ./example-input-1.txt",
+    "example2": "ts-node src/index.ts ./example-input-2.txt",
+    "example3": "ts-node src/index.ts ./example-input-3.txt",
     "test": "jest",
     "test:watch": "jest --watch"
   },

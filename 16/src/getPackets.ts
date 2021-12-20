@@ -1,18 +1,15 @@
 import { TYPE_ID } from './consts';
-import getLengthTypeId from './getLengthTypeId';
-import getVersion from './getVersion';
+import getSubpackets from './getSubpackets';
+import getTypeId from './getTypeId';
 
-function getPackets(packet: string): string[] {
-  const version = getVersion(packet);
-  const typeId = getVersion(packet);
+function getPackets(binaryPacket: string): any {
+  const typeId = getTypeId(binaryPacket);
 
   if (typeId === TYPE_ID.LITERAL_VALUE) {
-    return [packet];
+    return [binaryPacket];
   }
 
-  const lengthTypeId = getLengthTypeId(packet);
-
-  return [];
+  return getSubpackets(binaryPacket, 0);
 }
 
 export default getPackets;

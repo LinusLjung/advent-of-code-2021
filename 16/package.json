@@ -2,7 +2,7 @@
   "name": "day-16",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/16/src/index.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
     "part1": "ts-node src/index.ts ./input.txt",

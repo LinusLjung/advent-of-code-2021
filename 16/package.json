@@ -12,6 +12,8 @@
     "example1": "ts-node src/index.ts ./example-input-1.txt",
     "example2": "ts-node src/index.ts ./example-input-2.txt",
     "example3": "ts-node src/index.ts ./example-input-3.txt",
+    "example4": "ts-node src/index.ts ./example-input-4.txt",
+    "example5": "ts-node src/index.ts ./example-input-5.txt",
     "test": "jest",
     "test:watch": "jest --watch"
   },

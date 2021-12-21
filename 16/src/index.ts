@@ -3,21 +3,33 @@ import getInput from './getInput';
 import getPackets from './getPackets';
 import util from 'util';
 import createNewPacket from './createNewPacket';
+import flattenPackets from './flattenPackets';
+import getVersion from './getVersion';
 
 const input = getInput();
 const packet = getBinaryFromHex(input);
-// const version = getVersion(packet);
-// const typeId = getTypeId(packet);
-// const lengthTypeId = getLengthTypeId(packet);
 
 console.log(`Input: ${input}`);
-// console.log(`Version: ${version}`);
-// console.log(`Type ID: ${typeId}`);
-// console.log(`Length type ID: ${lengthTypeId}`);
+
+const packets = getPackets(createNewPacket(packet));
+
 console.log(
   'Packets:',
-  util.inspect(getPackets(createNewPacket(packet)), {
+  util.inspect(packets, {
     depth: 10,
     colors: true,
   })
+);
+
+console.log(
+  'Flattened:',
+  flattenPackets(packets).map((packet) => packet.originalPacket)
+);
+
+// 43
+console.log(
+  'Sum of versions:',
+  flattenPackets(packets)
+    .map((packet) => packet.originalPacket)
+    .reduce((acc, curr) => acc + getVersion(createNewPacket(curr)), 0)
 );

@@ -1,3 +1,4 @@
+import util from 'util';
 import {
   HEADER_SIZE,
   LENGTH_TYPE_ID,
@@ -6,13 +7,12 @@ import {
   TYPE_ID,
 } from './consts';
 import createNewPacket from './createNewPacket';
+import getInclusiveHeader from './getInclusiveHeader';
 import getLengthTypeId from './getLengthTypeId';
 import { getGroups } from './getLiteralValue';
 import getPacketMeta from './getPacketMeta';
 import getTypeId from './getTypeId';
-import getVersion from './getVersion';
 import { Packet } from './types';
-import util from 'util';
 
 let prevPacket: string;
 
@@ -21,7 +21,6 @@ function getPackets(packet: Packet): Packet {
     '[getPackets] packet',
     util.inspect(packet, { depth: 10, colors: true })
   );
-  console.log('[getPackets] version', getVersion(packet));
 
   if (packet.packet === prevPacket) {
     console.log(
@@ -33,7 +32,6 @@ function getPackets(packet: Packet): Packet {
   prevPacket = packet.packet;
 
   const typeId = getTypeId(packet);
-  console.log('[getPackets] typeId', typeId);
 
   if (typeId === TYPE_ID.LITERAL_VALUE) {
     const header = packet.packet.slice(0, HEADER_SIZE);
@@ -44,23 +42,42 @@ function getPackets(packet: Packet): Packet {
   }
 
   const lengthTypeId = getLengthTypeId(packet);
-  console.log('[getPackets] lengthTypeId', lengthTypeId);
-
   const meta = getPacketMeta(packet);
-  console.log('[getPackets] meta', meta);
 
   // const packets: Packet[] = [];
 
   function doLoop(restPacket: Packet): Packet {
-    const newPackets = getPackets(restPacket);
+    const newPackets = getPackets({ ...restPacket });
 
     // console.log('[doLoop] newPackets', newPackets);
 
-    return {
+    function getLength(packet: Packet): number {
+      if (getTypeId(packet) === 4) {
+        return packet.originalPacket.length;
+      }
+
+      return (
+        getInclusiveHeader({ ...newPackets, packet: newPackets.originalPacket })
+          .length +
+        packet.subpackets!.reduce(
+          (acc, curr) => acc + curr.originalPacket.length,
+          0
+        )
+      );
+    }
+
+    const packetToReturn = {
       ...restPacket,
-      packet: restPacket.packet.slice(newPackets.originalPacket.length),
+      packet: restPacket.packet.slice(getLength(newPackets)),
+      // packet: restPacket.packet.slice(newPackets.originalPacket.length),
+      // subpackets: [
+      //   ...(restPacket.subpackets || []),
+      //   ...(newPackets.subpackets || []),
+      // ],
       subpackets: [...(restPacket.subpackets || []), newPackets],
     };
+
+    return packetToReturn;
     // return {
     //   ...restPacket,
     //   rest: restPacket.rest.slice(
@@ -97,13 +114,15 @@ function getPackets(packet: Packet): Packet {
   }
 
   if (lengthTypeId === LENGTH_TYPE_ID.SUB_PACKETS_COUNT) {
-    const start =
-      HEADER_SIZE +
-      LENGTH_TYPE_ID_SIZE +
-      LENGTH_TYPE_ID_SIZES.SUB_PACKETS_COUNT;
+    const header = getInclusiveHeader(packet);
+    const start = header.length;
     const newPacket = packet.packet.slice(start);
 
-    let restPacket: Packet = createNewPacket(newPacket);
+    // let restPacket: Packet = createNewPacket(newPacket);
+    let restPacket: Packet = {
+      originalPacket: packet.packet,
+      packet: newPacket,
+    };
 
     for (let i = 0; i < meta; i++) {
       restPacket = doLoop(restPacket);
@@ -114,7 +133,7 @@ function getPackets(packet: Packet): Packet {
 
   console.log('--------------');
 
-  console.log('Exiting because of unhandled case');
+  console.log(`Exiting because of unhandled case. Packet: ${packet.packet}`);
   process.exit(2);
 }
 

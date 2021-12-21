@@ -2,6 +2,7 @@ import getBinaryFromHex from './getBinaryFromHex';
 import getInput from './getInput';
 import getPackets from './getPackets';
 import util from 'util';
+import createNewPacket from './createNewPacket';
 
 const input = getInput();
 const packet = getBinaryFromHex(input);
@@ -15,7 +16,7 @@ console.log(`Input: ${input}`);
 // console.log(`Length type ID: ${lengthTypeId}`);
 console.log(
   'Packets:',
-  util.inspect(getPackets({ originalPacket: packet, packet }), {
+  util.inspect(getPackets(createNewPacket(packet)), {
     depth: 10,
     colors: true,
   })
